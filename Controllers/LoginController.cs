@@ -1,6 +1,6 @@
-﻿using AstroWebComp.Helper;
-using AstroWebComp.Models;
-using AstroWebComp.Models.ViewModels;
+﻿using StratBazWebComp.Helper;
+using StratBazWebComp.Models;
+using StratBazWebComp.Models.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace AstroWebComp.Controllers
+namespace StratBazWebComp.Controllers
 {
     public class LoginController : Controller
     {

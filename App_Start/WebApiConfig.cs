@@ -2,7 +2,7 @@
 using Microsoft.Owin.Security.OAuth;
 using System.Net.Http.Headers;
 
-namespace AstroWebComp
+namespace StratBazWebComp
 {
     public static class WebApiConfig
     {

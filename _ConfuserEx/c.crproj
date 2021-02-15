@@ -1,6 +1,6 @@
-<project outputDir="C:\Torrents\AstroWebComp\obj\Release" baseDir="C:\Torrents\AstroWebComp\obj\Release" xmlns="http://confuser.codeplex.com">
+<project outputDir="D:\Work\source\mine\WebApps\StratBazWebAPI\obj\Release" baseDir="D:\Work\source\mine\WebApps\StratBazWebAPI\obj\Release" xmlns="http://confuser.codeplex.com">
 <rule pattern="true" />
-<module path="AstroWebComp.dll">
+<module path="StratBazWebComp.dll">
 <rule pattern="true">
 <protection id="anti ildasm" />
 <protection id="constants" />

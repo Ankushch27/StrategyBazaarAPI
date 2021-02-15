@@ -13,16 +13,16 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.IO;
 using System.Threading.Tasks;
-using AstroWebComp.Models;
-using WebResponse = AstroWebComp.Models.WebResponse;
+using StratBazWebComp.Models;
+using WebResponse = StratBazWebComp.Models.WebResponse;
 
-namespace AstroWebComp.Controllers
+namespace StratBazWebComp.Controllers
 {
     [Authorize]
     public class AdminController : ApiController
     {
         public MySqlConnection sqlConn = new MySqlConnection(
-           "server=103.16.222.196;user id=root;database=astro;password=j/vYN(6KL(;port=3306");
+           "server=103.16.222.196;user id=root;database=strategy_bazaar;password=j/vYN(6KL(;port=3306");
         [HttpPost]
         [AllowAnonymous]
         [ResponseType(typeof(WebResponse))]
@@ -68,7 +68,7 @@ namespace AstroWebComp.Controllers
                 }
 
                 string key = "5a127994a9352fdbf6e045f4bfd80884"; //Secret key which will be used later during validation    
-                var issuer = "AstroTrading";  //normally this will be your site URL    
+                var issuer = "StratBaz";  //normally this will be your site URL    
 
                 var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
                 var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

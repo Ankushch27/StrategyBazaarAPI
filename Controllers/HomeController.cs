@@ -1,5 +1,5 @@
-﻿using AstroWebComp.Helper;
-using AstroWebComp.Models;
+﻿using StratBazWebComp.Helper;
+using StratBazWebComp.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AstroWebComp.Controllers
+namespace StratBazWebComp.Controllers
 {
     [CustomAuthFilter]
     public class HomeController : Controller

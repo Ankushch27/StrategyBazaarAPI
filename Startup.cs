@@ -8,9 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 
-[assembly: OwinStartup(typeof(AstroWebComp.Startup))]
+[assembly: OwinStartup(typeof(StratBazWebComp.Startup))]
 
-namespace AstroWebComp
+namespace StratBazWebComp
 {
     public class Startup
     {
@@ -25,8 +25,8 @@ namespace AstroWebComp
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = "AstroTrading", //some string, normally web url,  
-                        ValidAudience = "AstroTrading",
+                        ValidIssuer = "StratBaz", //some string, normally web url,  
+                        ValidAudience = "StratBaz",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("5a127994a9352fdbf6e045f4bfd80884"))
                     }
                 });

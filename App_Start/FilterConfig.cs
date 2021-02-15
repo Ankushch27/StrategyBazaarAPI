@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Filters;
 using System.Web.Routing;
 
-namespace AstroWebComp
+namespace StratBazWebComp
 {
     public class FilterConfig
     {

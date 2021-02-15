@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace AstroWebComp.Helper
+namespace StratBazWebComp.Helper
 {
     public class Urls
     {
-        public const string BASE_URL = "http://103.16.222.196/api/";
+        public const string BASE_URL = "http://103.240.90.197/api/";
         //public const string BASE_URL = "http://localhost:52275/api/";
         public const string LOGIN = BASE_URL + "admin/login";
         public const string GET_USERS = BASE_URL + "admin/login";

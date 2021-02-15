@@ -13,8 +13,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.IO;
 using System.Threading.Tasks;
-using AstroWebComp.Models;
-using WebResponse = AstroWebComp.Models.WebResponse;
+using StratBazWebComp.Models;
+using WebResponse = StratBazWebComp.Models.WebResponse;
 using System.Security.Cryptography.X509Certificates;
 using Google.Apis.Auth.OAuth2;
 using EASendMail;
@@ -22,14 +22,15 @@ using System.Threading;
 using System.Net.Mail;
 using SmtpClient = System.Net.Mail.SmtpClient;
 using MailAddress = System.Net.Mail.MailAddress;
+using Newtonsoft.Json;
 
-namespace AstroWebComp.Controllers
+namespace StratBazWebComp.Controllers
 {
     [Authorize]
     public class UserController : ApiController
     {
         public MySqlConnection sqlConn = new MySqlConnection(
-            "server=103.16.222.196;user id=root;database=astro;password=j/vYN(6KL(;port=3306");
+            "server=103.16.222.196;user id=root;database=strategy_bazaar;password=j/vYN(6KL(;port=3306");
 
         private static List<ValidateToken> tokens = new List<ValidateToken>();
         public class ValidateToken
@@ -98,7 +99,7 @@ namespace AstroWebComp.Controllers
 
 
                 string key = "5a127994a9352fdbf6e045f4bfd80884"; //Secret key which will be used later during validation    
-                var issuer = "AstroTrading";  //normally this will be your site URL    
+                var issuer = "StratBaz";  //normally this will be your site URL    
 
                 var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
                 var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -403,113 +404,9 @@ namespace AstroWebComp.Controllers
         {
             try
             {
-                var identity = User.Identity as ClaimsIdentity;
-                if (identity != null)
-                {
-                    IEnumerable<Claim> claims = identity.Claims;
-                    var userid = claims.Where(p => p.Type == "userid").FirstOrDefault()?.Value;
-                    var lastLogin = claims.Where(p => p.Type == "LastLogin").FirstOrDefault()?.Value;
-                    if (userid != null)
-                    {
-                        var idx = tokens.FindIndex(x => x.user == userid);
-                        if (idx == -1)
-                        {
-                            return Ok(new WebResponse
-                            {
-                                code = (int)HttpStatusCode.BadRequest,
-                                status = "Not_Ok",
-                                message = "Success",
-                                data = "Login Expired!",
-                                error = false
-                            });
-                        }
-                        if (tokens[idx].lastLogin.ToString() != lastLogin)
-                        {
-                            return Ok(new WebResponse
-                            {
-                                code = (int)HttpStatusCode.BadRequest,
-                                status = "Not_Ok",
-                                message = "Success",
-                                data = "Login Expired!",
-                                error = false
-                            });
-                        }
-
-                        List<string> lines = new List<string>();
-                        string WL = "";
-                        switch (id)
-                        {
-                            case "WLMD":
-                                WL = "c:\\AAT\\MONEY MonSoon Daily.CSV";
-                                break;
-                            case "WLMH":
-                                WL = "c:\\AAT\\MONEY MonSoon Hourly.CSV";
-                                break;
-                            case "WLMW":
-                                WL = "c:\\AAT\\MONEY MonSoon Weekly.CSV";
-                                break;
-                            case "WLM15":
-                                WL = "c:\\AAT\\MONEY MonSoon 15MIN.CSV";
-                                break;
-                            case "WL15":
-                                WL = "c:\\AAT\\MONEY MonSoon 15MIN.CSV";
-                                break;
-                            default:
-                                WL = "c:\\AAT\\MONEY ATM 5MIN.CSV";
-                                break;
-                        }
-                        try
-                        {
-                            var fs = new FileStream(WL, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                            var stream = new StreamReader(fs);
-                            while (!stream.EndOfStream)
-                                lines.Add(await stream.ReadLineAsync());
-                            stream.Close();
-                            fs.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            WL = ex.Message;
-                        }
-                        if (lines.Count > 59)
-                        {
-
-                            var sorted = lines.Select(line => new
-                            {
-                                SortKey = line.Split(',')[0],
-                                Line = line
-                            }).OrderBy(x => x.SortKey).Select(x => x.Line);
-                            if (sorted.ToList()[0].Split(',').Length < 35) sorted = sorted.Skip(1);
-
-                            WL = string.Join("\r\n", sorted);
-                            return Ok(new WebResponse
-                            {
-                                code = (int)HttpStatusCode.OK,
-                                status = "Ok",
-                                message = "Success",
-                                data = new { Watch = WL },
-                                error = false
-                            });
-                        }
-                        else
-                            return Ok(new WebResponse
-                            {
-                                code = (int)HttpStatusCode.BadRequest,
-                                status = "Not_Ok",
-                                message = "Success",
-                                data = new { Watch = "Not available" },
-                                error = false
-                            });
-                    }
-                }
-                return Ok(new WebResponse
-                {
-                    code = (int)HttpStatusCode.BadRequest,
-                    status = "Not_Ok",
-                    message = "Success",
-                    data = "UnAuthorized",
-                    error = false
-                });
+                HttpClient client = new HttpClient();
+                var response = await client.GetAsync("http://103.16.222.196/user/GetFreeCSV/" + id).Result.Content.ReadAsStringAsync();
+                return Ok(JsonConvert.DeserializeObject<WebResponse>(response));
             }
             catch (Exception ex)
             {
@@ -523,7 +420,6 @@ namespace AstroWebComp.Controllers
                 });
             }
         }
-
         [AllowAnonymous]
         [HttpPost]
         [ResponseType(typeof(WebResponse))]
@@ -823,7 +719,7 @@ namespace AstroWebComp.Controllers
                 #region Smtp old
                 using (MailMessage mail = new MailMessage())
                 {
-                    mail.From = new MailAddress("dhaval@authenticastrotrading.com");
+                    mail.From = new MailAddress("support@strategybazaar.com");
                     //if (EmailToAddress.Contains(";"))
                     //{
                     //    string[] emails = EmailToAddress.Split(";".ToCharArray());
@@ -844,12 +740,12 @@ namespace AstroWebComp.Controllers
                             " style=\"background-color:transparent\"><span class=\"colour\" style=\"color:rgb(0, 0, 0)\"><span class=\"font\" " +
                             "style=\"font-family:Arial\"><span class=\"size\" style=\"font-size: 11pt; font-weight: 400; font-style: normal;" +
                             " font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">Please enter this" +
-                            " OTP on the request screen to complete process.</span></span></span></span></b></div><div><br></div><div>Regards,<br>Authentic Astro Trading<br></div>";
+                            " OTP on the request screen to complete process.</span></span></span></span></b></div><div><br></div><div>Regards,<br>Strategy Bazaar<br></div>";
                     }
                     else
                     {
                         mail.Subject = "OTP for Password Reset";
-                        mail.Body = "<div>Hi <br>Your OTP is <b>{OTP}</b> required to reset your password.</div><div><br></div><div>Regards,<br>Authentic Astro Trading<br></div>";
+                        mail.Body = "<div>Hi <br>Your OTP is <b>{OTP}</b> required to reset your password.</div><div><br></div><div>Regards,<br>Strategy Bazaar<br></div>";
                     }
                     string Otp = new Random().Next(100000, 999999).ToString();
 
@@ -858,13 +754,13 @@ namespace AstroWebComp.Controllers
 
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                     {
-                        smtp.Credentials = new NetworkCredential("dhaval@authenticastrotrading.com", "123456789");
+                        smtp.Credentials = new NetworkCredential("support@strategybazaar.com", "123456789");
                         smtp.EnableSsl = true;
                         smtp.Send(mail);
                     }
 
                     string key = "5a127994a9352fdbf6e045f4bfd80884"; //Secret key which will be used later during validation    
-                    var issuer = "AstroTrading";  //normally this will be your site URL    
+                    var issuer = "StratBaz";  //normally this will be your site URL    
 
                     var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
                     var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -946,91 +842,6 @@ namespace AstroWebComp.Controllers
                 data = "UnAuthorized",
                 error = true
             });
-        }
-        [AllowAnonymous]
-        [HttpGet]
-        [ResponseType(typeof(WebResponse))]
-        public async Task<IHttpActionResult> GetFreeCSV([FromUri] string id)
-        {
-            try
-            {
-                List<string> lines = new List<string>();
-                string WL = "";
-                switch (id)
-                {
-                    case "WLMD":
-                        WL = "c:\\AAT\\MONEY MonSoon Daily.CSV";
-                        break;
-                    case "WLMH":
-                        WL = "c:\\AAT\\MONEY MonSoon Hourly.CSV";
-                        break;
-                    case "WLMW":
-                        WL = "c:\\AAT\\MONEY MonSoon Weekly.CSV";
-                        break;
-                    case "WLM15":
-                        WL = "c:\\AAT\\MONEY MonSoon 15MIN.CSV";
-                        break;
-                    case "WL15":
-                        WL = "c:\\AAT\\MONEY MonSoon 15MIN.CSV";
-                        break;
-                    default:
-                        WL = "c:\\AAT\\MONEY ATM 5MIN.CSV";
-                        break;
-                }
-                try
-                {
-                    var fs = new FileStream(WL, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    var stream = new StreamReader(fs);
-                    while (!stream.EndOfStream)
-                        lines.Add(await stream.ReadLineAsync());
-                    stream.Close();
-                    fs.Close();
-                }
-                catch (Exception ex)
-                {
-                    WL = ex.Message;
-                }
-                if (lines.Count > 59)
-                {
-
-                    var sorted = lines.Select(line => new
-                    {
-                        SortKey = line.Split(',')[0],
-                        Line = line
-                    }).OrderBy(x => x.SortKey).Select(x => x.Line);
-                    if (sorted.ToList()[0].Split(',').Length < 35) sorted = sorted.Skip(1);
-
-                    WL = string.Join("\r\n", sorted);
-                    return Ok(new WebResponse
-                    {
-                        code = (int)HttpStatusCode.OK,
-                        status = "Ok",
-                        message = "Success",
-                        data = new { Watch = WL },
-                        error = false
-                    });
-                }
-                else
-                    return Ok(new WebResponse
-                    {
-                        code = (int)HttpStatusCode.BadRequest,
-                        status = "Not_Ok",
-                        message = "Success",
-                        data = new { Watch = "Not available" },
-                        error = false
-                    });
-            }
-            catch (Exception ex)
-            {
-                return Ok(new WebResponse
-                {
-                    code = (int)HttpStatusCode.InternalServerError,
-                    status = "Not_Ok",
-                    message = "Error",
-                    data = ex.Message,
-                    error = true
-                });
-            }
         }
 
     }
