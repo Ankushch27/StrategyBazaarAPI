@@ -1,0 +1,82 @@
+﻿@model AstroWebComp.Models.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "View";
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin | Astro Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Login/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    @*<link rel="stylesheet" type="text/css" href="~/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">*@
+    <!--===============================================================================================-->
+    @*<link rel="stylesheet" type="text/css" href="~/Login/fonts/iconic/css/material-design-iconic-font.min.css">*@
+    <link rel="stylesheet" href="~/Content/Lte/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/util.css">
+    <!--===============================================================================================-->
+    <script defer src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script defer src="~/Scripts/bootstrap.min.js"></script>
+
+    <!--===============================================================================================-->
+    <script defer src="~/Scripts/main.js"></script>
+    <script defer src="~/Scripts/View/Login.js"></script>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('/Login/images/bg-01.jpg');">
+            <div class="wrap-login100">
+
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "login100-form validate-form" }))
+                {
+
+                    <span class="login100-form-logo">
+                        <img src="~/Content/1024-154kb.png" class="logo" />
+                    </span>
+
+                    <span class="login100-form-title p-b-34 p-t-27">
+                        Admin Login
+                    </span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter username">
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "input100", placeholder = "Username" } })
+                        @*@Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })*@
+                        <span class="focus-input100" data-placeholder="&#xf205;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input100", placeholder = "Password" } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                        <span class="focus-input100" data-placeholder="&#xf190;"></span>
+                    </div>
+                    <div id="formFooter">
+                        @{
+                            if (ViewData["ErrorMessage"] != null)
+                            {
+                                <div class="text-center w-100"><span class="text-danger">@ViewData["ErrorMessage"] </span></div>
+                            }
+                        }
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn shadow">
+                            Login
+                        </button>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<project outputDir="C:\Torrents\AstroWebComp\obj\Release" baseDir="C:\Torrents\AstroWebComp\obj\Release" xmlns="http://confuser.codeplex.com">
+<rule pattern="true" />
+<module path="AstroWebComp.dll">
+<rule pattern="true">
+<protection id="anti ildasm" />
+<protection id="constants" />
+<protection id="ctrl flow" />
+<protection id="ref proxy" />
+<protection id="resources" />
+<protection id = "rename" >
+<argument name = "mode" value = "decodable" />
+<argument name = "renPublic" value = "false" />
+<argument name = "renEnum" value = "false" />
+<argument name = "renameArgs" value = "false" />
+</protection >
+</rule>
+</module>
+<probePath>..\..\packages\AdvancedStringBuilder.0.1.0\lib\net45</probePath>
+<probePath>..\..\packages\BouncyCastle.1.8.3.1\lib</probePath>
+<probePath>..\..\packages\EASendMail.7.7.0.6\lib\net45</probePath>
+<probePath>..\..\packages\Google.Apis.1.49.0\lib\net45</probePath>
+<probePath>..\..\packages\Google.Apis.Auth.1.49.0\lib\net45</probePath>
+<probePath>..\..\packages\Google.Apis.Core.1.49.0\lib\net45</probePath>
+<probePath>..\..\packages\Google.Protobuf.3.11.4\lib\net45</probePath>
+<probePath>..\..\packages\JavaScriptEngineSwitcher.Core.3.1.0\lib\net45</probePath>
+<probePath>..\..\packages\JSPool.4.0.0\lib\net45</probePath>
+<probePath>..\..\packages\K4os.Compression.LZ4.1.1.11\lib\net45</probePath>
+<probePath>..\..\packages\K4os.Compression.LZ4.Streams.1.1.11\lib\net45</probePath>
+<probePath>..\..\packages\K4os.Hash.xxHash.1.0.6\lib\net45</probePath>
+<probePath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2</probePath>
+<probePath>..\..\packages\Microsoft.IdentityModel.JsonWebTokens.6.8.0\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.IdentityModel.Logging.6.8.0\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.IdentityModel.Tokens.6.8.0\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.Owin.4.1.1\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.Owin.Host.SystemWeb.4.1.1\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.Owin.Security.4.1.1\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.Owin.Security.Jwt.4.1.1\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.Owin.Security.OAuth.4.1.1\lib\net45</probePath>
+<probePath>..\..\packages\MySql.Data.8.0.22\lib\net452</probePath>
+<probePath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45</probePath>
+<probePath>..\..\packages\Owin.1.0\lib\net40</probePath>
+<probePath>..\..\packages\SSH.NET.2016.1.0\lib\net40</probePath>
+<probePath>..\..\packages\System.Buffers.4.5.1\lib\netstandard1.1</probePath>
+<probePath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\Facades</probePath>
+<probePath>..\..\packages\System.IdentityModel.Tokens.Jwt.6.8.0\lib\net45</probePath>
+<probePath>..\..\packages\System.Memory.4.5.3\lib\netstandard1.1</probePath>
+<probePath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0</probePath>
+<probePath>..\..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40</probePath>
+<probePath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45</probePath>
+<probePath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40</probePath>
+<probePath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45</probePath>
+<probePath>..\..\packages\Twilio.5.52.1\lib\net451</probePath>
+<probePath>..\..\packages\WebActivatorEx.2.2.0\lib\net40</probePath>
+<probePath>..\..\packages\WebGrease.1.6.0\lib</probePath>
+<probePath>..\..\packages\Antlr.3.5.0.2\lib</probePath>
+<probePath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45</probePath>
+</project>
